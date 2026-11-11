@@ -118,6 +118,7 @@ async function route() {
     else if (r.name === 'chat') await viewChat(r.id);
     else if (r.name === 'settings') await viewSettings();
     else location.hash = '#/new';
+    window.scrollTo(0, 0); // links from the bottom of a long page must land at the top of the next one
   } catch (e) {
     console.error(e);
     view.innerHTML = errorBox('Something went wrong: ' + e.message);
@@ -481,7 +482,7 @@ async function viewChat(id) {
   drawThread();
 
   const input = document.getElementById('msgInput');
-  const send = () => { const t = input.value.trim(); if (t) { input.value = ''; autosize(); sendMessage(t); } };
+  const send = () => { const t = input.value.trim(); if (!t || pendingChats.has(ctx.chat.id)) return; input.value = ''; autosize(); sendMessage(t); };
   const autosize = () => { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 200) + 'px'; };
   input.addEventListener('input', autosize);
   input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); send(); } });
@@ -515,11 +516,18 @@ function drawThread() {
   if (t) t.textContent = chat.title;
 }
 
-async function sendMessage(text, command) {
+function shortTitle(text) {
+  const t = text.replace(/\s+/g, ' ').trim();
+  if (t.length <= 56) return t;
+  const cut = t.slice(0, 56);
+  return cut.slice(0, Math.max(cut.lastIndexOf(' '), 30)).replace(/[,.;:\-–]+$/, '') + '…';
+}
+
+async function sendMessage(text, command, title) {
   if (pendingChats.has(ctx.chat.id)) return;
   const { chat } = ctx;
   chat.messages.push({ id: uid(), role: 'user', content: text, ts: Date.now(), command: command || undefined });
-  if (chat.title === 'New chat') { const c = COMMANDS.find(x => x.cmd === command); chat.title = c ? c.label : text.replace(/\s+/g, ' ').slice(0, 52); }
+  if (chat.title === 'New chat') { const c = COMMANDS.find(x => x.cmd === command); chat.title = title || (c ? c.label : shortTitle(text)); }
   chat.updatedAt = Date.now();
   emptyChatId = null;
   await db.put('chats', chat);
@@ -660,7 +668,7 @@ async function viewSettings() {
 view.addEventListener('click', async e => {
   const el = e.target.closest('[data-act],[data-starter],[data-cmd]');
   if (!el) return;
-  if (el.dataset.starter !== undefined) return sendMessage(STARTERS[+el.dataset.starter].text);
+  if (el.dataset.starter !== undefined) { const st = STARTERS[+el.dataset.starter]; return sendMessage(st.text, undefined, st.label); }
   if (el.dataset.cmd !== undefined) { const c = COMMANDS[+el.dataset.cmd]; return sendMessage(c.text, c.cmd); }
   switch (el.dataset.act) {
     case 'new-chat': return startNewChat(ctx.report.id);
