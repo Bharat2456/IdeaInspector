@@ -1,0 +1,16 @@
+{
+  "name": "ideainspector",
+  "version": "2.0.0",
+  "description": "Open-source AI diligence for startup ideas, with a built-in AI consultant chat. Bring your own AI key, any provider, any model.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test test/*.test.js",
+    "build:consulting": "node scripts/build-consulting.js"
+  },
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/Bharat2456/IdeaInspector.git" },
+  "author": "Bharat Wagh",
+  "engines": { "node": ">=18.0.0" }
+}

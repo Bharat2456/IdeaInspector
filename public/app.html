@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard · IdeaInspector</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F6F3EC">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/theme.css">
+<link rel="stylesheet" href="/assets/css/report.css">
+<link rel="stylesheet" href="/assets/css/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <a class="brand" href="/"><span class="name">IdeaInspector</span><span class="sub">Dashboard</span></a>
+    <a class="nav-i" data-nav="new" href="#/new">+ New idea</a>
+    <a class="nav-i" data-nav="reports" href="#/reports">Reports <span class="count" id="countReports"></span></a>
+    <a class="nav-i" data-nav="chats" href="#/chats">Chats <span class="count" id="countChats"></span></a>
+    <a class="nav-i" data-nav="settings" href="#/settings">Settings</a>
+    <div class="spacer"></div>
+    <div class="foot"><a href="/">Home</a> &middot; <a href="/builder">Builder</a><br>Stored in this browser only</div>
+  </aside>
+  <main class="main" id="view" aria-live="polite"></main>
+</div>
+<div id="modalRoot"></div>
+<div class="toast-root" id="toastRoot"></div>
+<noscript><p style="padding:24px">IdeaInspector needs JavaScript enabled.</p></noscript>
+<script type="module" src="/assets/js/app.js"></script>
+</body>
+</html>

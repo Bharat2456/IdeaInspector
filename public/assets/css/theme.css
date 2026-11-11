@@ -1,0 +1,50 @@
+/* IdeaInspector theme: the original paper / ink / serif / mono look, shared by every page. */
+:root{
+  --ink:#14171F;
+  --paper:#F6F3EC;
+  --paper-2:#EFEADD;
+  --rule:#C9C2AE;
+  --accent:#B5772E;
+  --good:#3F6B52;
+  --risk:#A3402B;
+  --muted:#6B6656;
+  --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  --sans: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;}
+a{color:inherit;}
+img{max-width:100%;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.mono-label{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);}
+
+/* Buttons: same language as the original (mono, uppercase, square) */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;
+  background:none;border:1px solid var(--rule);color:var(--ink);padding:10px 16px;cursor:pointer;line-height:1.2;
+}
+.btn:hover{border-color:var(--ink);}
+.btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.btn.primary:hover{background:#2A2E3B;}
+.btn.sm{font-size:10.5px;padding:6px 10px;letter-spacing:.5px;}
+.btn.danger:hover{color:var(--risk);border-color:var(--risk);}
+.btn:disabled,.btn[disabled]{opacity:.5;cursor:default;pointer-events:none;}
+
+/* Forms */
+.field{margin-bottom:16px;}
+.field:last-child{margin-bottom:0;}
+.field label{display:block;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px;}
+.field label .opt{text-transform:none;letter-spacing:0;font-family:var(--sans);color:var(--muted);font-size:11px;}
+.field input[type="text"],.field input[type="password"],.field input[type="number"],.field input[type="url"],.field select,.field textarea,.input{
+  width:100%;background:var(--paper);border:1px solid var(--rule);padding:10px 12px;font-family:var(--sans);font-size:14.5px;color:var(--ink);border-radius:0;
+}
+.field textarea{min-height:110px;resize:vertical;line-height:1.5;}
+.field input:focus,.field select:focus,.field textarea:focus,.input:focus{outline:none;border-color:var(--ink);}
+.field .help{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5;}
+
+.error-box{font-family:var(--mono);font-size:12.5px;color:var(--risk);border:1px solid var(--risk);padding:14px;margin-top:16px;line-height:1.5;word-break:break-word;}
+.notice-box{font-size:12.5px;color:var(--muted);border:1px solid var(--rule);background:var(--paper-2);padding:12px 14px;margin-top:16px;line-height:1.55;}
+.tag{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;}
